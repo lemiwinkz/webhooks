@@ -78,6 +78,12 @@ class Webhook extends Model
     public $payloadTemplate;
 
     /**
+     * @var bool
+     */
+    public $ignoreEmptyBody;
+
+
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -107,7 +113,7 @@ class Webhook extends Model
             [['name', 'class', 'event', 'method', 'url'], 'required'],
             [['name'], UniqueValidator::class, 'targetClass' => WebhookRecord::class],
             [['groupId'], 'number'],
-            [['enabled'], 'boolean'],
+            [['enabled', 'ignoreEmptyBody'], 'boolean'],
             [['method'], 'in', 'range' => ['get', 'post']],
             [['url'], 'url'],
             [

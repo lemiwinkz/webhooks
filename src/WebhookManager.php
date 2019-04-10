@@ -201,7 +201,8 @@ class WebhookManager
             'userAttributes' => $webhook->userAttributes,
             'senderAttributes' => $webhook->senderAttributes,
             'eventAttributes' => $webhook->eventAttributes,
-            'payloadTemplate' => $webhook->payloadTemplate
+            'payloadTemplate' => $webhook->payloadTemplate,
+            'ignoreEmptyBody' => (bool)$webhook->ignoreEmptyBody
         ];
 
         if ($webhook->id) {
@@ -236,7 +237,7 @@ class WebhookManager
     private function _createWebhookQuery(): Query
     {
         return (new Query())
-            ->select(['id', 'groupId', 'enabled', 'name', 'class', 'event', 'method', 'url', 'userAttributes', 'senderAttributes', 'eventAttributes', 'payloadTemplate'])
+            ->select(['id', 'groupId', 'enabled', 'name', 'class', 'event', 'method', 'url', 'userAttributes', 'senderAttributes', 'eventAttributes', 'payloadTemplate', 'ignoreEmptyBody'])
             ->from(['{{%webhooks}}']);
     }
 

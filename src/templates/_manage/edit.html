@@ -151,6 +151,15 @@
         </div>
 
         <div id="custom-payload" class="{{ not webhook.payloadTemplate ? 'hidden' }}">
+
+            {{ forms.lightswitchField({
+                label: 'Ignore empty body'|t('webhooks'),
+                instructions: 'If set to true the webhook doesnt send if the payload template returned null or an empty string.'|t('webhooks'),
+                id: 'ignoreEmptyBody',
+                name: 'ignoreEmptyBody',
+                on: webhook.ignoreEmptyBody
+            }) }}
+
             {{ forms.textareaField({
                 label: 'Payload Template'|t('webhooks'),
                 instructions: 'Enter a custom Twig template that outputs the payload body. An `event` variable will be present, set to the event that was triggered.'|t('webhooks'),

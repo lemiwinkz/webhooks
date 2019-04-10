@@ -40,6 +40,7 @@ class Install extends Migration
             'eventAttributes' => $this->text(),
             'payloadTemplate' => $this->mediumText(),
             'enabled' => $this->boolean()->notNull()->defaultValue(true),
+            'ignoreEmptyBody' => $this->boolean(),
             'dateCreated' => $this->dateTime()->notNull(),
             'dateUpdated' => $this->dateTime()->notNull(),
             'uid' => $this->uid(),

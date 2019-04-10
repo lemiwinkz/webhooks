@@ -48,7 +48,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public $schemaVersion = '2.0.1';
+    public $schemaVersion = '2.0.2';
 
     // Public Methods
     // =========================================================================
@@ -118,8 +118,13 @@ class Plugin extends \craft\base\Plugin
                 }
 
                 // Check if it exists and if we we should send if it doesnt.
-                if (!$this->doesBodyHaveValue($body) && $this->getSettings()->dontSendEmptyRequestBody === true) {
-                    Craft::warning('Ignored webhook '. $webhook->name .' because the body was empty.', 'webhooks');
+                if (
+                    $webhook->method === 'post' &&
+                    $webhook->payloadTemplate &&
+                    $webhook->ignoreEmptyBody &&
+                    !$this->doesBodyHaveValue($body)
+                ) {
+                    Craft::warning('Ignored webhook ' . $webhook->name . ' because the body was empty.', 'webhooks');
                 } else {
                     $this->request($webhook->method, $webhook->url, $headers, $body, $webhook->id);
                 }
